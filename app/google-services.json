@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "100574311247",
+    "firebase_url": "https://abfiness-dd02f.firebaseio.com",
+    "project_id": "abfiness-dd02f",
+    "storage_bucket": "abfiness-dd02f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100574311247:android:a7c3f4b75e31eca0",
+        "android_client_info": {
+          "package_name": "udacity.example.com.abfitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100574311247-lavgl8mj9dghoammqeav0stt1jbdl41e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "udacity.example.com.abfitness",
+            "certificate_hash": "5cc3f4608cf6cf973e04d4c3f914e6bf0bc3fc5b"
+          }
+        },
+        {
+          "client_id": "100574311247-tmom40bpjredkcrec2g81ijtm78e85q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByofXWe2uwpbOyMgEMj_hDT6P6VFg6Y-Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100574311247-tmom40bpjredkcrec2g81ijtm78e85q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
