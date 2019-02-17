@@ -18,7 +18,7 @@ public class JsonUtils {
     private JsonUtils() {
     }
 
-    public static ArrayList<String> getBaseListFromJson() {
+    public static ArrayList<String> getBaseList() {
         ArrayList<String> list = new ArrayList<>();
         list.add("Monday");
         list.add("Tuesday");

@@ -8,4 +8,16 @@
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
+
+
+    <color name="red">#ef5350</color>
+    <color name="orange">#ffa726</color>
+    <color name="yellow">#ffee58</color>
+    <color name="green">#66bb6a</color>
+    <color name="lightBlue">#29b6f6</color>
+    <color name="blue">#5c6bc0</color>
+    <color name="purple">#ab47bc</color>
+
+
+
 </resources>

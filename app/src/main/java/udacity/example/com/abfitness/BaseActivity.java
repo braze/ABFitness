@@ -3,17 +3,21 @@ package udacity.example.com.abfitness;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -30,8 +34,9 @@ import java.util.Locale;
 import udacity.example.com.abfitness.Utils.CircleTransform;
 import udacity.example.com.abfitness.Utils.JsonUtils;
 import udacity.example.com.abfitness.Utils.NetworkUtils;
+import udacity.example.com.abfitness.adapters.BaseListAdapter;
 import udacity.example.com.abfitness.async.tasks.FetchJsonAsyncTask;
-import udacity.example.com.abfitness.interfaces.OnFetchJsonTaskCompleted;
+import udacity.example.com.abfitness.interfaces.OnAdapterClickHandler;
 
 import static udacity.example.com.abfitness.MainActivity.EXTRA_EMAIL;
 import static udacity.example.com.abfitness.MainActivity.EXTRA_NAME;
@@ -39,15 +44,23 @@ import static udacity.example.com.abfitness.MainActivity.EXTRA_PHOTO_URI;
 import static udacity.example.com.abfitness.Utils.NetworkUtils.THE_JSON;
 
 public class BaseActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnFetchJsonTaskCompleted {
+        implements NavigationView.OnNavigationItemSelectedListener, OnAdapterClickHandler {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
-    private View navHeader;
-    ImageView imgProfile;
-    TextView userName;
-    TextView userEmail;
+    private static final String BUNDLE_RECYCLER_LAYOUT = "baseListFragment_recycler_layout";
+    private static final String ADAPTER_LIST = "baseListFragment_adapter_list";
+
+    private View mNavHeader;
+    private ImageView mImgProfile;
+    private TextView mUserName;
+    private TextView mUserEmail;
+    public ArrayList<String> mBaseList;
 
     private SharedPreferences mPreferences;
+    private RecyclerView mRecyclerView;
+    private Parcelable mSavedRecyclerLayoutState;
+    private BaseListAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +80,41 @@ public class BaseActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Navigation view header
-        navHeader = navigationView.getHeaderView(0);
-        userName = (TextView) navHeader.findViewById(R.id.nav_drawer_user_name);
-        userEmail = (TextView) navHeader.findViewById(R.id.nav_drawer_email);
-//        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.nav_drawer_iv);
+        mNavHeader = navigationView.getHeaderView(0);
+        mUserName = (TextView) mNavHeader.findViewById(R.id.nav_drawer_user_name);
+        mUserEmail = (TextView) mNavHeader.findViewById(R.id.nav_drawer_email);
+//        imgNavHeaderBg = (ImageView) mNavHeader.findViewById(R.id.img_header_bg);
+        mImgProfile = (ImageView) mNavHeader.findViewById(R.id.nav_drawer_iv);
 
         //fill navigation view header with user data
         loadUserDataToNavigationDrawer();
 
+        //start Async task
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        new FetchJsonAsyncTask(BaseActivity.this, mPreferences ).execute();
+        new FetchJsonAsyncTask(mPreferences).execute();
 
+        //RecyclerView work
+        mRecyclerView = (RecyclerView) findViewById(R.id.base_list_rv);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new BaseListAdapter(this);
+
+        if (savedInstanceState != null) {
+            mSavedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
+
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mSavedRecyclerLayoutState);
+            ArrayList<String> baseList = savedInstanceState.getStringArrayList(ADAPTER_LIST);
+            mAdapter.setBaseList(baseList);
+        } else {
+            mBaseList = JsonUtils.getBaseList();
+            mAdapter.setBaseList(mBaseList);
+        }
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -106,6 +142,7 @@ public class BaseActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_news) {
             // TODO: 2/13/19 get news
+            startActivity(new Intent(BaseActivity.this, NewsActivity.class));
 
         } else if (id == R.id.nav_feedback) {
             // TODO: 2/13/19 write email
@@ -137,17 +174,26 @@ public class BaseActivity extends AppCompatActivity
 
             Glide.with(this).load(pic)
                     .apply(options)
-                    .into(imgProfile);
+                    .into(mImgProfile);
 
-            userName.setText(name);
-            userEmail.setText(mail);
+            mUserName.setText(name);
+            mUserEmail.setText(mail);
 
         }
     }
 
     @Override
-    public void onTaskCompleted(ArrayList<String> dayOfWeekList) {
-        // TODO: 2/13/19 set dayOfWeekList to recyclerView here
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mAdapter != null){
+            outState.putStringArrayList(ADAPTER_LIST, mAdapter.getBaseList());
+            outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, mRecyclerView.getLayoutManager().onSaveInstanceState());
+        }
+    }
 
+
+    @Override
+    public void onClick(int position, String posName) {
+        Toast.makeText(this, "position = " + position + " "+ posName, Toast.LENGTH_SHORT).show();
     }
 }
