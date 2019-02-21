@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -49,6 +48,7 @@ public class BaseActivity extends AppCompatActivity
     private static final String TAG = BaseActivity.class.getSimpleName();
     private static final String BUNDLE_RECYCLER_LAYOUT = "baseListFragment_recycler_layout";
     private static final String ADAPTER_LIST = "baseListFragment_adapter_list";
+    public static final String ARG_INTENT_EXERCISES = "argument_intent_exercises";
 
     private View mNavHeader;
     private ImageView mImgProfile;
@@ -67,8 +67,10 @@ public class BaseActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        toolbar.setTitle("AB Fitness");
+        setSupportActionBar(toolbar);
+        ((AppCompatActivity)this).getSupportActionBar().setTitle("AB Fitness");
+
+//        toolbar.setTitle("AB Fitness");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -194,6 +196,8 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void onClick(int position, String posName) {
-        Toast.makeText(this, "position = " + position + " "+ posName, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Exercises.class);
+        intent.putExtra(ARG_INTENT_EXERCISES, posName);
+        startActivity(intent);
     }
 }
