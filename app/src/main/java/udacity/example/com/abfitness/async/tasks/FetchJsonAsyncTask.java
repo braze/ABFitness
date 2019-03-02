@@ -3,7 +3,7 @@ package udacity.example.com.abfitness.async.tasks;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import udacity.example.com.abfitness.Utils.NetworkUtils;
+import udacity.example.com.abfitness.utils.NetworkUtils;
 
 public class FetchJsonAsyncTask extends AsyncTask<Void, Void, Void> {
 

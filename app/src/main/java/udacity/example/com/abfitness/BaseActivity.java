@@ -2,6 +2,7 @@ package udacity.example.com.abfitness;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -30,17 +31,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import udacity.example.com.abfitness.Utils.CircleTransform;
-import udacity.example.com.abfitness.Utils.JsonUtils;
-import udacity.example.com.abfitness.Utils.NetworkUtils;
 import udacity.example.com.abfitness.adapters.BaseListAdapter;
 import udacity.example.com.abfitness.async.tasks.FetchJsonAsyncTask;
 import udacity.example.com.abfitness.interfaces.OnAdapterClickHandler;
+import udacity.example.com.abfitness.utils.CircleTransform;
+import udacity.example.com.abfitness.utils.JsonUtils;
+import udacity.example.com.abfitness.utils.NetworkUtils;
 
 import static udacity.example.com.abfitness.MainActivity.EXTRA_EMAIL;
 import static udacity.example.com.abfitness.MainActivity.EXTRA_NAME;
 import static udacity.example.com.abfitness.MainActivity.EXTRA_PHOTO_URI;
-import static udacity.example.com.abfitness.Utils.NetworkUtils.THE_JSON;
+import static udacity.example.com.abfitness.utils.NetworkUtils.THE_JSON;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnAdapterClickHandler {
@@ -69,8 +70,6 @@ public class BaseActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ((AppCompatActivity)this).getSupportActionBar().setTitle("AB Fitness");
-
-//        toolbar.setTitle("AB Fitness");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -147,7 +146,10 @@ public class BaseActivity extends AppCompatActivity
             startActivity(new Intent(BaseActivity.this, NewsActivity.class));
 
         } else if (id == R.id.nav_feedback) {
-            // TODO: 2/13/19 write email
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:yabraze@gmail.com"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "AB Fitness");
+            startActivity(Intent.createChooser(emailIntent, "Send feedback"));
 
         } else if (id == R.id.btn_sign_out) {
             FirebaseAuth.getInstance().signOut();

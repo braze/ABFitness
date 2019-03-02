@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness.Utils;
+package udacity.example.com.abfitness.utils;
 
 import android.content.SharedPreferences;
 
@@ -13,14 +13,15 @@ import okhttp3.Response;
 public class NetworkUtils {
 
     private static String TAG = NetworkUtils.class.getSimpleName();
-    private static final String ABFITNESS_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/abfiness-dd02f.appspot.com/o/abfit.json?alt=media&token=d89e5734-de5b-4798-a821-60ad6dbde7cd";
+    private static final String ABFITNESS_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/abfiness-dd02f.appspot.com/o/abfit.json?alt=media&token=a2388a90-7755-4d25-893f-76161bd6613f";
+//    private static final String ABFITNESS_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/abfiness-dd02f.appspot.com/o/abfit%202.json?alt=media&token=5c78a240-a6e0-46da-a5a7-812dea171f5e";
     public static final String THE_JSON = "the_Json";
     private static SharedPreferences sPreferences;
 
     private NetworkUtils() {
     }
 
-    public static String getJsonString(SharedPreferences preferences){
+    public static void getJsonString(SharedPreferences preferences){
         sPreferences = preferences;
 
         URL fitnessUrl = buildUrl();
@@ -31,7 +32,7 @@ public class NetworkUtils {
             e.printStackTrace();
         }
         sPreferences.edit().putString(THE_JSON, jsonString).apply();
-        return jsonString;
+//        return jsonString;
     }
 
     /**

@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness.Utils;
+package udacity.example.com.abfitness.utils;
 
 import android.util.Log;
 
@@ -35,6 +35,8 @@ public class JsonUtils {
         if (jsonString == null || jsonString.isEmpty()) {
             return null;
         }
+//        String baseUrl = "https://www.youtube.com" + "/watch?v=";
+        String baseUrl = "";
         String warmUpVideoUrl = null;
         ArrayList<String> warmUpDescription = new ArrayList<>();
         String workOutVideoUrl = null;
@@ -48,19 +50,21 @@ public class JsonUtils {
             JSONObject objectInArray = mainObj.getJSONObject(dayOfWeek);
 
             JSONObject warmUp = objectInArray.getJSONObject("warm_up");
-            warmUpVideoUrl = warmUp.getString("video_url");
+            warmUpVideoUrl = baseUrl + warmUp.getString("video_url");
+            Log.d(TAG, "getExercises: warmUpVideoUrl>>>>> " + warmUpVideoUrl);
             JSONArray warmUpDescriptionArr = warmUp.getJSONArray("description");
             for (int i = 0; i < warmUpDescriptionArr.length(); i++) {
                 warmUpDescription.add(warmUpDescriptionArr.getString(i));
+                Log.d(TAG, "getExercises: >>>>"+ warmUpDescriptionArr.getString(i));
             }
             JSONObject workOut = objectInArray.getJSONObject("work_out");
-            workOutVideoUrl = workOut.getString("video_url");
+            workOutVideoUrl = baseUrl + workOut.getString("video_url");
             JSONArray workOutDescriptionArr = workOut.getJSONArray("description");
             for (int i = 0; i < workOutDescriptionArr.length(); i++) {
                 workOutDescription.add(workOutDescriptionArr.getString(i));
             }
             JSONObject coolDown = objectInArray.getJSONObject("cool_down");
-            coolDownVideoUrl = coolDown.getString("video_url");
+            coolDownVideoUrl = baseUrl + coolDown.getString("video_url");
             JSONArray coolDownDescriptionArr = coolDown.getJSONArray("description");
             for (int i = 0; i < coolDownDescriptionArr.length(); i++) {
                 coolDownDescription.add(coolDownDescriptionArr.getString(i));

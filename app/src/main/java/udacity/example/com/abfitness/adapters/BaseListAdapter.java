@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import udacity.example.com.abfitness.R;
-import udacity.example.com.abfitness.Utils.ColorUtils;
+import udacity.example.com.abfitness.utils.ColorUtils;
 import udacity.example.com.abfitness.interfaces.OnAdapterClickHandler;
 
 public class BaseListAdapter extends RecyclerView.Adapter<BaseListAdapter.BaseListAdapterViewHolder> {

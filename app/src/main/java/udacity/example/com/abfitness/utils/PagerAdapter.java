@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness.Utils;
+package udacity.example.com.abfitness.utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,12 +6,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-import udacity.example.com.abfitness.CoolDownFragment;
-import udacity.example.com.abfitness.WarmUpFragment;
-import udacity.example.com.abfitness.WorkoutFragment;
+import udacity.example.com.abfitness.fragments.CoolDownFragment;
+import udacity.example.com.abfitness.fragments.WarmUpFragment;
+import udacity.example.com.abfitness.fragments.WorkoutFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
+    private static final String TAG = PagerAdapter.class.getSimpleName();
     private int mNumOfTabs;
     private String mWarmUpVideoUrl;
     private ArrayList<String> mWarmUpDescription;
@@ -38,16 +39,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                WarmUpFragment tab1 = WarmUpFragment.newInstance(mWarmUpVideoUrl, mWarmUpDescription);
-                return tab1;
+                return WarmUpFragment.newInstance(mWarmUpVideoUrl, mWarmUpDescription);
             case 1:
-                WorkoutFragment tab2 = WorkoutFragment.newInstance(mWorkOutVideoUrl, mWorkOutDescription);
-                return tab2;
+                return WorkoutFragment.newInstance(mWorkOutVideoUrl, mWorkOutDescription);
             case 2:
-                CoolDownFragment tab3 = CoolDownFragment.newInstance(mCoolDownVideoUrl, mCoolDownDescription);
-                return tab3;
+                return CoolDownFragment.newInstance(mCoolDownVideoUrl, mCoolDownDescription);
             default:
-                return null;
+                return WarmUpFragment.newInstance(mWarmUpVideoUrl, mWarmUpDescription);
         }
     }
 

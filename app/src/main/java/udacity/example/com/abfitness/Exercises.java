@@ -10,13 +10,16 @@ import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 
-import udacity.example.com.abfitness.Utils.JsonUtils;
-import udacity.example.com.abfitness.Utils.NetworkUtils;
-import udacity.example.com.abfitness.Utils.PagerAdapter;
+import udacity.example.com.abfitness.fragments.CoolDownFragment;
+import udacity.example.com.abfitness.fragments.WarmUpFragment;
+import udacity.example.com.abfitness.fragments.WorkoutFragment;
+import udacity.example.com.abfitness.utils.JsonUtils;
+import udacity.example.com.abfitness.utils.NetworkUtils;
+import udacity.example.com.abfitness.utils.PagerAdapter;
 import udacity.example.com.abfitness.model.Fitness;
 
 import static udacity.example.com.abfitness.BaseActivity.ARG_INTENT_EXERCISES;
-import static udacity.example.com.abfitness.Utils.NetworkUtils.THE_JSON;
+import static udacity.example.com.abfitness.utils.NetworkUtils.THE_JSON;
 
 public class Exercises extends AppCompatActivity implements
                 WarmUpFragment.OnFragmentInteractionListener,
@@ -46,6 +49,10 @@ public class Exercises extends AppCompatActivity implements
         if (intent != null) {
             String jsonPositionName = intent.getStringExtra(ARG_INTENT_EXERCISES);
             String jsonString = NetworkUtils.getSharedPreferences().getString(THE_JSON,"");
+
+//            Log.d(TAG, "jsonPositionName: " + jsonPositionName);
+//            Log.d(TAG, "jsonString: " + jsonString);
+
             fitness = JsonUtils.getExercises(jsonString, jsonPositionName);
             warmUpVideoUrl = fitness.getWarmUpVideoUrl();
             warmUpDescription = fitness.getWarmUpDescription();
@@ -56,7 +63,7 @@ public class Exercises extends AppCompatActivity implements
             ((AppCompatActivity)this).getSupportActionBar().setTitle(jsonPositionName + " activity");
         }
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Warm Up"));
         tabLayout.addTab(tabLayout.newTab().setText("Work Out"));
         tabLayout.addTab(tabLayout.newTab().setText("Cool Down"));
@@ -69,7 +76,7 @@ public class Exercises extends AppCompatActivity implements
                         workOutDescription, coolDownVideoUrl, coolDownDescription);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

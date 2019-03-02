@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness.Utils;
+package udacity.example.com.abfitness.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
