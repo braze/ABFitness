@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness.utils;
+package udacity.example.com.abfitness.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

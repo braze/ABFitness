@@ -15,7 +15,7 @@ import udacity.example.com.abfitness.fragments.WarmUpFragment;
 import udacity.example.com.abfitness.fragments.WorkoutFragment;
 import udacity.example.com.abfitness.utils.JsonUtils;
 import udacity.example.com.abfitness.utils.NetworkUtils;
-import udacity.example.com.abfitness.utils.PagerAdapter;
+import udacity.example.com.abfitness.adapters.PagerAdapter;
 import udacity.example.com.abfitness.model.Fitness;
 
 import static udacity.example.com.abfitness.BaseActivity.ARG_INTENT_EXERCISES;

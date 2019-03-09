@@ -11,7 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PlayExerciseVideo"></activity>
+        <activity android:name=".EditorActivity"></activity>
+        <activity
+            android:name=".NewsDetail"
+            android:parentActivityName=".NewsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NewsActivity" />
+        </activity>
         <activity
             android:name=".Exercises"
             android:parentActivityName=".BaseActivity">

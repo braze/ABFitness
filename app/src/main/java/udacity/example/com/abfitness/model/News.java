@@ -15,6 +15,18 @@ public class News implements Parcelable {
         this.newsBody = newsBody;
     }
 
+    public String getNewsHeader() {
+        return newsHeader;
+    }
+
+    public String getNewsPicUrl() {
+        return newsPicUrl;
+    }
+
+    public String getNewsBody() {
+        return newsBody;
+    }
+
     protected News(Parcel in) {
         newsHeader = in.readString();
         newsPicUrl = in.readString();

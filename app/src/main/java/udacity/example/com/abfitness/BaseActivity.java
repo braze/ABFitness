@@ -25,11 +25,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import udacity.example.com.abfitness.adapters.BaseListAdapter;
 import udacity.example.com.abfitness.async.tasks.FetchJsonAsyncTask;
@@ -135,17 +131,15 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_me) {
             // Handle the me action
         } else if (id == R.id.nav_meal_plan) {
-            Calendar calendar = Calendar.getInstance();
-            Date date = calendar.getTime();
-            String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime());
+            //getting mealPlan
             String jsonString = NetworkUtils.getSharedPreferences().getString(THE_JSON,"");
-            JsonUtils.getNews(jsonString, dayOfWeek);
+            JsonUtils.getMealPlan(jsonString);
 
         } else if (id == R.id.nav_news) {
-            // TODO: 2/13/19 get news
             startActivity(new Intent(BaseActivity.this, NewsActivity.class));
 
         } else if (id == R.id.nav_feedback) {
+            //Send email
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
             emailIntent.setData(Uri.parse("mailto:yabraze@gmail.com"));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "AB Fitness");
@@ -194,7 +188,6 @@ public class BaseActivity extends AppCompatActivity
             outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, mRecyclerView.getLayoutManager().onSaveInstanceState());
         }
     }
-
 
     @Override
     public void onClick(int position, String posName) {
