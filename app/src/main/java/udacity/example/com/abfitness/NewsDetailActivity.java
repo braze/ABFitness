@@ -7,6 +7,7 @@ import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,9 +17,9 @@ import com.bumptech.glide.request.RequestOptions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsDetail extends AppCompatActivity {
+public class NewsDetailActivity extends AppCompatActivity {
 
-    private static final String TAG = NewsDetail.class.getSimpleName();
+    private static final String TAG = NewsDetailActivity.class.getSimpleName();
     private static final String HEADER = "header";
     private static final String LOGO_URL = "logo_url";
     private static final String ARTICLE = "article";
@@ -38,6 +39,8 @@ public class NewsDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_news_detail);
 
         ButterKnife.bind(this);

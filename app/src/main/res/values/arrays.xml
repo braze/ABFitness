@@ -2,7 +2,7 @@
 
 <resources>
     <string-array name="array_gender_options">
-        <item>@string/gender_male</item>
         <item>@string/gender_female</item>
+        <item>@string/gender_male</item>
     </string-array>
 </resources>

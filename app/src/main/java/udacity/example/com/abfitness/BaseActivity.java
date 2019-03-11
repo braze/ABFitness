@@ -1,5 +1,6 @@
 package udacity.example.com.abfitness;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 
 import udacity.example.com.abfitness.adapters.BaseListAdapter;
 import udacity.example.com.abfitness.async.tasks.FetchJsonAsyncTask;
+import udacity.example.com.abfitness.data.MeContract.UserEntry;
 import udacity.example.com.abfitness.interfaces.OnAdapterClickHandler;
 import udacity.example.com.abfitness.utils.CircleTransform;
 import udacity.example.com.abfitness.utils.JsonUtils;
@@ -129,7 +131,11 @@ public class BaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_me) {
-            // Handle the me action
+            // Handle the ME action
+            Intent intent = new Intent(BaseActivity.this, EditorActivity.class);
+            Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
+            intent.setData(currentPetUri);
+            startActivity(intent);
         } else if (id == R.id.nav_meal_plan) {
             //getting mealPlan
             String jsonString = NetworkUtils.getSharedPreferences().getString(THE_JSON,"");

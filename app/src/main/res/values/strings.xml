@@ -18,4 +18,9 @@
 
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
+    <string name="action_save">Save</string>
+    <string name="editor_insert_user_failed">Error with saving user</string>
+    <string name="editor_insert_user_successful">Saved successfuly</string>
+    <string name="editor_update_user_failed">Failed to update</string>
+    <string name="editor_update_user_successful">Updated</string>
 </resources>
