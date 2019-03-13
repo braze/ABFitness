@@ -23,4 +23,58 @@
     <string name="editor_insert_user_successful">Saved successfuly</string>
     <string name="editor_update_user_failed">Failed to update</string>
     <string name="editor_update_user_successful">Updated</string>
+
+    <string name="meal_plan_failed">Please, fill all these fields to get meal plan</string>
+
+    <string name="one_cup">1 cup</string>
+    <string name="tofu">Tofu 200cal</string>
+    <string name="beans">Beans 245cal</string>
+    <string name="peas">Peas 134cal</string>
+    <string name="quinoa">Quinoa 218cal</string>
+    <string name="nuts">Nuts 800cal</string>
+    <string name="seeds">Seeds 721cal</string>
+    <string name="cod">Cod 190cal</string>
+    <string name="cheese">Cottage cheese 222cal</string>
+    <string name="eggs">2 eggs 156cal</string>
+    <string name="amaranth">Amaranth 717cal</string>
+    <string name="salmon">200gr salmon 427cal</string>
+    <string name="mushrooms">Mushrooms 70cal</string>
+
+    <string name="rise">Rise 205cal</string>
+    <string name="potato">Sweet Potato 114cal</string>
+    <string name="oats">Oats 300cal</string>
+    <string name="buckwheat">Buckwheat 180cal</string>
+    <string name="lentils">Lentils 230cal</string>
+    <string name="chickpeas">Chickpeas 729cal</string>
+    <string name="nuts_mix">Nuts mix 800cal</string>
+    <string name="pumpkin">Seeds Pumpkin 721cal</string>
+    <string name="fruits">Fruits / RAW 45-85cal</string>
+    <string name="berries">Berries / RAW 85cal</string>
+
+    <string name="kale">Kale 33</string>
+    <string name="lettuce">Lettuce 5cal</string>
+    <string name="cucumber">Cucumber 16cal</string>
+    <string name="pepper">Pepper 60cal</string>
+    <string name="broccoli">Broccoli 30cal</string>
+    <string name="brussel">Brussel spr. 38cal</string>
+    <string name="cabbage">Cabbage 17cal</string>
+    <string name="carrots">Carrots 45cal</string>
+    <string name="cauliflower">Cauliflower 27cal</string>
+    <string name="celery">Celery 10cal</string>
+    <string name="zucchini">Zucchini 19cal</string>
+    <string name="spinach">Spinach 7cal</string>
+    <string name="tomatoes">Tomatoes 30cal</string>
+
+    <string name="tbps">1 Tbsp</string>
+    <string name="olive">Olive Oil 119cal</string>
+    <string name="avocado">Avocado 124cal</string>
+    <string name="nut_butter">Nut Butter 90cal</string>
+
+    <string name="total_cal_per_day">Total calories per day:</string>
+    <string name="recovery_cal">Recovery calories:</string>
+    <string name="energy_cal">Energy calories:</string>
+    <string name="vitality_cal">Vitality row calories:</string>
+    <string name="oil_cal">Oil calories:</string>
+
+
 </resources>

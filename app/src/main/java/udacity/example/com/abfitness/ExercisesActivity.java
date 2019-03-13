@@ -22,12 +22,12 @@ import udacity.example.com.abfitness.utils.NetworkUtils;
 import static udacity.example.com.abfitness.BaseActivity.ARG_INTENT_EXERCISES;
 import static udacity.example.com.abfitness.utils.NetworkUtils.THE_JSON;
 
-public class Exercises extends AppCompatActivity implements
+public class ExercisesActivity extends AppCompatActivity implements
                 WarmUpFragment.OnFragmentInteractionListener,
                 WorkoutFragment.OnFragmentInteractionListener,
                 CoolDownFragment.OnFragmentInteractionListener {
 
-    private static final String TAG = Exercises.class.getSimpleName();
+    private static final String TAG = ExercisesActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,6 @@ public class Exercises extends AppCompatActivity implements
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/editor_layout_padding"
     tools:context=".EditorActivity">
 
     <!-- Name category -->
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
+            android:paddingLeft="@dimen/editor_name_field_side_padding"
             android:orientation="vertical">
 
             <!-- Name field -->
@@ -63,7 +63,7 @@
                 android:id="@+id/spinner_gender"
                 android:layout_height="48dp"
                 android:layout_width="wrap_content"
-                android:paddingRight="16dp"
+                android:paddingRight="@dimen/editor_spinner_side_padding"
                 android:spinnerMode="dropdown"/>
         </LinearLayout>
     </LinearLayout>
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:paddingLeft="@dimen/editor_fields_side_padding">
 
             <!-- Age field -->
             <EditText
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:paddingLeft="@dimen/editor_fields_side_padding">
 
             <!-- Weight field -->
             <EditText
@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:paddingLeft="@dimen/editor_fields_side_padding">
 
             <!-- Height field -->
             <EditText

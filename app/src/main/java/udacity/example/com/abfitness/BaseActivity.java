@@ -34,12 +34,10 @@ import udacity.example.com.abfitness.data.MeContract.UserEntry;
 import udacity.example.com.abfitness.interfaces.OnAdapterClickHandler;
 import udacity.example.com.abfitness.utils.CircleTransform;
 import udacity.example.com.abfitness.utils.JsonUtils;
-import udacity.example.com.abfitness.utils.NetworkUtils;
 
 import static udacity.example.com.abfitness.MainActivity.EXTRA_EMAIL;
 import static udacity.example.com.abfitness.MainActivity.EXTRA_NAME;
 import static udacity.example.com.abfitness.MainActivity.EXTRA_PHOTO_URI;
-import static udacity.example.com.abfitness.utils.NetworkUtils.THE_JSON;
 
 public class BaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnAdapterClickHandler {
@@ -48,6 +46,9 @@ public class BaseActivity extends AppCompatActivity
     private static final String BUNDLE_RECYCLER_LAYOUT = "baseListFragment_recycler_layout";
     private static final String ADAPTER_LIST = "baseListFragment_adapter_list";
     public static final String ARG_INTENT_EXERCISES = "argument_intent_exercises";
+    public static final String LOGO = "logo";
+    public static final String USER_NAME = "username";
+    public static final String EMAIL = "email";
 
     private View mNavHeader;
     private ImageView mImgProfile;
@@ -59,6 +60,10 @@ public class BaseActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private Parcelable mSavedRecyclerLayoutState;
     private BaseListAdapter mAdapter;
+
+    private String mName;
+    private String mLogo;
+    private String mMail;
 
 
     @Override
@@ -85,9 +90,6 @@ public class BaseActivity extends AppCompatActivity
 //        imgNavHeaderBg = (ImageView) mNavHeader.findViewById(R.id.img_header_bg);
         mImgProfile = (ImageView) mNavHeader.findViewById(R.id.nav_drawer_iv);
 
-        //fill navigation view header with user data
-        loadUserDataToNavigationDrawer();
-
         //start Async task
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         new FetchJsonAsyncTask(mPreferences).execute();
@@ -104,6 +106,10 @@ public class BaseActivity extends AppCompatActivity
         mAdapter = new BaseListAdapter(this);
 
         if (savedInstanceState != null) {
+            mName = savedInstanceState.getString(USER_NAME);
+            mLogo = savedInstanceState.getString(LOGO);
+            mMail = savedInstanceState.getString(EMAIL);
+
             mSavedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
 
             mRecyclerView.getLayoutManager().onRestoreInstanceState(mSavedRecyclerLayoutState);
@@ -114,6 +120,13 @@ public class BaseActivity extends AppCompatActivity
             mAdapter.setBaseList(mBaseList);
         }
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //fill navigation view header with user data
+        loadUserDataToNavigationDrawer();
     }
 
     @Override
@@ -138,8 +151,12 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_meal_plan) {
             //getting mealPlan
-            String jsonString = NetworkUtils.getSharedPreferences().getString(THE_JSON,"");
-            JsonUtils.getMealPlan(jsonString);
+//            String jsonString = NetworkUtils.getSharedPreferences().getString(THE_JSON,"");
+//            JsonUtils.getMealPlan(jsonString);
+            Intent intent = new Intent(BaseActivity.this, MealPlanActivity.class);
+            Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
+            intent.setData(currentPetUri);
+            startActivity(intent);
 
         } else if (id == R.id.nav_news) {
             startActivity(new Intent(BaseActivity.this, NewsActivity.class));
@@ -167,21 +184,21 @@ public class BaseActivity extends AppCompatActivity
     private void loadUserDataToNavigationDrawer() {
         Intent userDataIntent = getIntent();
         if (userDataIntent != null) {
-            String name = userDataIntent.getStringExtra(EXTRA_NAME);
-            String pic = userDataIntent.getStringExtra(EXTRA_PHOTO_URI);
-            String mail = userDataIntent.getStringExtra(EXTRA_EMAIL);
+            mName = userDataIntent.getStringExtra(EXTRA_NAME);
+            mLogo = userDataIntent.getStringExtra(EXTRA_PHOTO_URI);
+            mMail = userDataIntent.getStringExtra(EXTRA_EMAIL);
 
             RequestOptions options = new RequestOptions();
             options.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .transform(new CenterCrop())
                     .transform(new CircleTransform(this));
 
-            Glide.with(this).load(pic)
+            Glide.with(this).load(mLogo)
                     .apply(options)
                     .into(mImgProfile);
 
-            mUserName.setText(name);
-            mUserEmail.setText(mail);
+            mUserName.setText(mName);
+            mUserEmail.setText(mMail);
 
         }
     }
@@ -192,12 +209,15 @@ public class BaseActivity extends AppCompatActivity
         if (mAdapter != null){
             outState.putStringArrayList(ADAPTER_LIST, mAdapter.getBaseList());
             outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, mRecyclerView.getLayoutManager().onSaveInstanceState());
+            outState.putString(USER_NAME, mName);
+            outState.putString(LOGO, mLogo);
+            outState.putString(EMAIL, mMail);
         }
     }
 
     @Override
     public void onClick(int position, String posName) {
-        Intent intent = new Intent(this, Exercises.class);
+        Intent intent = new Intent(this, ExercisesActivity.class);
         intent.putExtra(ARG_INTENT_EXERCISES, posName);
         startActivity(intent);
     }

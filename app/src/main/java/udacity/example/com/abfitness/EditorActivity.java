@@ -107,6 +107,7 @@ public class EditorActivity extends AppCompatActivity implements
 // Bail early if the cursor is null or there is less than 1 row in the cursor
         if (cursor == null || cursor.getCount() < 1) {
             mCurrentUserUri = null;
+
             return;
         }
 

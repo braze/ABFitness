@@ -6,5 +6,5 @@
     android:id="@+id/list_view_item_tv"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="16dp"
+    android:textSize="@dimen/exercises_list_item_text_size"
     tools:text="step description" />

@@ -6,9 +6,9 @@
     android:id="@+id/news_item_cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="6dp">
+    android:layout_margin="@dimen/card_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,19 +17,19 @@
 
         <ImageView
             android:id="@+id/news_item_iv"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="8dp" />
+            android:layout_width="@dimen/card_view_image_size"
+            android:layout_height="@dimen/card_view_image_size"
+            android:layout_margin="@dimen/card_view_image_margin" />
 
         <TextView
             android:id="@+id/news_item_header_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/card_view_text_margin"
             android:fontFamily="sans-serif"
             android:gravity="center_horizontal"
-            android:textSize="36sp"
+            android:textSize="@dimen/card_view_text_size"
             android:textStyle="bold"
             tools:text="NEWS HEADER" />
 

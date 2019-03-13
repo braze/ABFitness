@@ -24,12 +24,12 @@
                 <ImageView
                     android:id="@+id/photo"
                     android:layout_width="match_parent"
-                    android:layout_height="304dp"
+                    android:layout_height="@dimen/news_detail_image_height"
                     android:scaleType="centerCrop" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="304dp"
+                    android:layout_height="@dimen/news_detail_image_height"
                     android:background="@drawable/photo_background_protection" />
 
             </FrameLayout>
@@ -38,10 +38,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="304dp"
-                android:background="#fff"
-                android:elevation="2dp"
-                android:maxWidth="10000dp"
+                android:layout_marginTop="@dimen/news_detail_image_height"
+                android:background="@color/news_detail_body_background"
+                android:elevation="@dimen/news_detail_elevation"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -52,10 +51,10 @@
                     android:layout_marginBottom="16dp"
                     android:background="#333"
                     android:orientation="vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="16dp">
+                    android:paddingLeft="@dimen/news_detail_layout_padding"
+                    android:paddingTop="@dimen/news_detail_layout_padding"
+                    android:paddingRight="@dimen/news_detail_layout_padding"
+                    android:paddingBottom="@dimen/news_detail_layout_padding">
 
                     <TextView
                         android:id="@+id/article_header"
@@ -64,9 +63,9 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:lineSpacingMultiplier="0.9"
-                        android:paddingBottom="4dp"
-                        android:textColor="#fff"
-                        android:textSize="32sp"
+                        android:paddingBottom="@dimen/news_detail_padding_bottom"
+                        android:textColor="@color/colorText"
+                        android:textSize="@dimen/news_detail_text_size"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -76,13 +75,13 @@
                     style="?android:attr/textAppearanceMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="@dimen/news_detail_side_margin"
+                    android:layout_marginRight="@dimen/news_detail_side_margin"
                     android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
-                    android:paddingBottom="88dp"
+                    android:paddingBottom="@dimen/nwes_detail_padding_bottom_text_body"
                     android:textColor="@color/colorPrimaryText"
                     android:textColorLink="@color/colorAccent"
-                    android:textSize="22sp" />
+                    android:textSize="@dimen/news_detail_body_text_size" />
 
             </LinearLayout>
 
@@ -92,13 +91,13 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="@dimen/fab_margin_value"
+        android:layout_marginBottom="@dimen/fab_margin_value"
         android:contentDescription="@string/action_share"
-        android:elevation="6dp"
+        android:elevation="@dimen/fab_elevation"
         android:src="@drawable/ic_share"
         android:stateListAnimator="@animator/fab_state_list_anim"
         app:backgroundTint="@color/colorAccent" />

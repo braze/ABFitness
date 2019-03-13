@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/meal_margin_bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/meal_standart_margin"
+        android:layout_marginRight="@dimen/meal_standart_margin"
+        android:layout_marginLeft="@dimen/meal_standart_margin"
+        android:layout_marginBottom="@dimen/meal_margin_bottom"
+        tools:context=".MealPlanActivity">
+
+        <TextView
+            android:id="@+id/total_calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/meal_large_margin"
+            android:layout_marginRight="@dimen/meal_large_margin"
+            android:layout_marginLeft="@dimen/meal_standart_margin"
+            android:layout_marginBottom="@dimen/meal_margin_bottom"
+            tools:text="Total calories: 2000" />
+
+        <TextView
+            android:id="@+id/recovery_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_header_text_size"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/meal_standart_margin"
+            android:layout_marginRight="@dimen/meal_standart_margin"
+            android:layout_marginLeft="@dimen/meal_standart_margin"
+            tools:text="recovery 30 %" />
+
+        <ListView
+            android:id="@+id/recovery_lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_list_view_text_size"
+            android:textStyle="italic"
+            android:layout_margin="@dimen/meal_standart_margin">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/energy_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_header_text_size"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/meal_standart_margin"
+            android:layout_marginRight="@dimen/meal_standart_margin"
+            android:layout_marginLeft="@dimen/meal_standart_margin"
+            tools:text="energy 30 %" />
+
+        <ListView
+            android:id="@+id/energy_lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_list_view_text_size"
+            android:textStyle="italic"
+            android:layout_margin="@dimen/meal_standart_margin"/>
+
+        <TextView
+            android:id="@+id/vitality_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_header_text_size"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/meal_standart_margin"
+            android:layout_marginRight="@dimen/meal_standart_margin"
+            android:layout_marginLeft="@dimen/meal_standart_margin"
+            tools:text="Vitality ROW! 35 %" />
+
+        <ListView
+            android:id="@+id/vitality_lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_list_view_text_size"
+            android:textStyle="italic"
+            android:layout_margin="@dimen/meal_standart_margin"/>
+
+        <TextView
+            android:id="@+id/oil_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_header_text_size"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/meal_standart_margin"
+            android:layout_marginRight="@dimen/meal_standart_margin"
+            android:layout_marginLeft="@dimen/meal_standart_margin"
+            tools:text="Oil 5 %" />
+
+        <ListView
+            android:id="@+id/oil_lv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/meal_list_view_text_size"
+            android:textStyle="italic"
+            android:layout_margin="@dimen/meal_standart_margin"/>
+
+
+    </LinearLayout>
+
+</ScrollView>

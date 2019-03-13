@@ -18,7 +18,8 @@
     <color name="lightBlue">#29b6f6</color>
     <color name="blue">#5c6bc0</color>
     <color name="purple">#ab47bc</color>
-
+    <color name="player_background_color">#A6000000</color>
+    <color name="news_detail_body_background">#fff</color>
 
 
 </resources>

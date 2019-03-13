@@ -5,4 +5,61 @@
         <item>@string/gender_female</item>
         <item>@string/gender_male</item>
     </string-array>
+    
+    <string-array name="array_recovery">
+        <item>@string/one_cup</item>
+        <item>@string/tofu</item>
+        <item>@string/beans</item>
+        <item>@string/peas</item>
+        <item>@string/quinoa</item>
+        <item>@string/nuts</item>
+        <item>@string/seeds</item>
+        <item>@string/cod</item>
+        <item>@string/cheese</item>
+        <item>@string/eggs</item>
+        <item>@string/amaranth</item>
+        <item>@string/salmon</item>
+        <item>@string/mushrooms</item>
+    </string-array>
+
+    <string-array name="array_energy">
+        <item>@string/one_cup</item>
+        <item>@string/rise</item>
+        <item>@string/potato</item>
+        <item>@string/oats</item>
+        <item>@string/buckwheat</item>
+        <item>@string/lentils</item>
+        <item>@string/chickpeas</item>
+        <item>@string/nuts_mix</item>
+        <item>@string/pumpkin</item>
+        <item>@string/quinoa</item>
+        <item>@string/peas</item>
+        <item>@string/fruits</item>
+        <item>@string/berries</item>
+    </string-array>
+    
+    <string-array name="array_vitality">
+        <item>@string/one_cup</item>
+        <item>@string/kale</item>
+        <item>@string/lettuce</item>
+        <item>@string/cucumber</item>
+        <item>@string/pepper</item>
+        <item>@string/broccoli</item>
+        <item>@string/brussel</item>
+        <item>@string/cabbage</item>
+        <item>@string/carrots</item>
+        <item>@string/cauliflower</item>
+        <item>@string/celery</item>
+        <item>@string/zucchini</item>
+        <item>@string/spinach</item>
+        <item>@string/tomatoes</item>
+    </string-array>
+
+    <string-array name="array_oil">
+        <item>@string/tbps</item>
+        <item>@string/olive</item>
+        <item>@string/avocado</item>
+        <item>@string/nut_butter</item>
+    </string-array>
+
 </resources>

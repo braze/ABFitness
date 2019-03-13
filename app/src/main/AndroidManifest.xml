@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditorActivity"
+        <activity android:name=".MealPlanActivity">
+
+        </activity>
+        <activity
+            android:name=".EditorActivity"
             android:theme="@style/AppTheme">
 
         </activity>
@@ -30,20 +34,23 @@
                 android:value=".NewsActivity" />
         </activity>
         <activity
-            android:name=".Exercises"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".BaseActivity">
+            android:name=".ExercisesActivity"
+            android:parentActivityName=".BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BaseActivity" />
         </activity>
-        <activity android:name=".NewsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".NewsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".BaseActivity"
             android:label="@string/title_activity_base"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,11 +58,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider
-            android:authorities="udacity.example.com.abfitness"
-            android:name=".data.MeProvider"
-            android:exported="false"/>
 
+        <provider
+            android:name=".data.MeProvider"
+            android:authorities="udacity.example.com.abfitness"
+            android:exported="false" />
     </application>
 
 </manifest>
