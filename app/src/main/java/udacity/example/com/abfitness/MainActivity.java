@@ -202,4 +202,12 @@ public class MainActivity extends BaseActivity implements
         userDataIntent.putExtra(EXTRA_EMAIL, eMail);
         startActivity(userDataIntent);
     }
+
+    public void freeEnter(View view) {
+        Intent userDataIntent = new Intent(this, BaseActivity.class);
+        userDataIntent.putExtra(EXTRA_NAME, R.string.user_name);
+        userDataIntent.putExtra(EXTRA_PHOTO_URI, R.string.cat_pic);
+        userDataIntent.putExtra(EXTRA_EMAIL, R.string.example_email);
+        startActivity(userDataIntent);
+    }
 }

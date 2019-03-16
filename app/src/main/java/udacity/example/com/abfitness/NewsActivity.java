@@ -48,8 +48,6 @@ public class NewsActivity extends BaseActivity implements OnNewsClickHandler {
         adapter.setNewsList(newsList);
         mRecyclerView.setAdapter(adapter);
 
-
-
     }
 
     @Override

@@ -75,6 +75,11 @@
     <string name="energy_cal">Energy calories:</string>
     <string name="vitality_cal">Vitality row calories:</string>
     <string name="oil_cal">Oil calories:</string>
+    <string name="widget_header">Meal plan help list</string>
+    <string name="user_name">userName</string>
+    <string name="cat_pic">https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS07uU8m6lCnd3mFEN98OgtbpgstOVp40uKWmr48nAGPsxqKWbB</string>
+    <string name="example_email">username@example.com</string>
+    <string name="free_enter">Free Enter</string>
 
 
 </resources>

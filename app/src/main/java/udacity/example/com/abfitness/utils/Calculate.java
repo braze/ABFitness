@@ -33,4 +33,5 @@ public class Calculate {
         }
         return calories;
     }
+
 }

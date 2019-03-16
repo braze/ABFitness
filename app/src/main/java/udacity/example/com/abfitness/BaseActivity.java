@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import udacity.example.com.abfitness.adapters.BaseListAdapter;
 import udacity.example.com.abfitness.async.tasks.FetchJsonAsyncTask;
@@ -46,9 +47,11 @@ public class BaseActivity extends AppCompatActivity
     private static final String BUNDLE_RECYCLER_LAYOUT = "baseListFragment_recycler_layout";
     private static final String ADAPTER_LIST = "baseListFragment_adapter_list";
     public static final String ARG_INTENT_EXERCISES = "argument_intent_exercises";
-    public static final String LOGO = "logo";
-    public static final String USER_NAME = "username";
-    public static final String EMAIL = "email";
+    private static final String LOGO = "logo";
+    private static final String USER_NAME = "username";
+    private static final String EMAIL = "email";
+    private static final String MEAL_HELP_LIST = "meal_help_list";
+    public static ArrayList<String> sMealHelpList;
 
     private View mNavHeader;
     private ImageView mImgProfile;
@@ -109,6 +112,7 @@ public class BaseActivity extends AppCompatActivity
             mName = savedInstanceState.getString(USER_NAME);
             mLogo = savedInstanceState.getString(LOGO);
             mMail = savedInstanceState.getString(EMAIL);
+            sMealHelpList = savedInstanceState.getStringArrayList(MEAL_HELP_LIST);
 
             mSavedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
 
@@ -118,8 +122,11 @@ public class BaseActivity extends AppCompatActivity
         } else {
             mBaseList = JsonUtils.getBaseList();
             mAdapter.setBaseList(mBaseList);
+            sMealHelpList = getHelpMealList();
         }
         mRecyclerView.setAdapter(mAdapter);
+
+
     }
 
     @Override
@@ -127,6 +134,8 @@ public class BaseActivity extends AppCompatActivity
         super.onResume();
         //fill navigation view header with user data
         loadUserDataToNavigationDrawer();
+
+        MealPlanService.startActionSetWidgetMealPlanHelp(this);
     }
 
     @Override
@@ -151,8 +160,6 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_meal_plan) {
             //getting mealPlan
-//            String jsonString = NetworkUtils.getSharedPreferences().getString(THE_JSON,"");
-//            JsonUtils.getMealPlan(jsonString);
             Intent intent = new Intent(BaseActivity.this, MealPlanActivity.class);
             Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
             intent.setData(currentPetUri);
@@ -209,6 +216,7 @@ public class BaseActivity extends AppCompatActivity
         if (mAdapter != null){
             outState.putStringArrayList(ADAPTER_LIST, mAdapter.getBaseList());
             outState.putParcelable(BUNDLE_RECYCLER_LAYOUT, mRecyclerView.getLayoutManager().onSaveInstanceState());
+            outState.putStringArrayList(MEAL_HELP_LIST, sMealHelpList);
             outState.putString(USER_NAME, mName);
             outState.putString(LOGO, mLogo);
             outState.putString(EMAIL, mMail);
@@ -221,4 +229,27 @@ public class BaseActivity extends AppCompatActivity
         intent.putExtra(ARG_INTENT_EXERCISES, posName);
         startActivity(intent);
     }
+
+    //prepare list for widget
+    private ArrayList<String> getHelpMealList() {
+        ArrayList<String> list = new ArrayList<>();
+
+        String[] arrayRecover = getResources().getStringArray(R.array.array_recovery);
+        String[] arrayEnergy = getResources().getStringArray(R.array.array_energy);
+        String[] arrayVitality = getResources().getStringArray(R.array.array_vitality);
+        String[] arrayOil = getResources().getStringArray(R.array.array_oil);
+
+        list.add("1 cup contains:");
+        list.addAll(Arrays.asList(arrayRecover).subList(1, arrayRecover.length));
+        list.addAll(Arrays.asList(arrayVitality).subList(1, arrayVitality.length));
+        for (int i = 1; i < arrayEnergy.length; i++) {
+            if (!(list.contains(arrayEnergy[i]))) {
+                list.add(arrayEnergy[i]);
+            }
+        }
+        list.add("1 tbsp contains:");
+        list.addAll(Arrays.asList(arrayOil).subList(1, arrayOil.length));
+        return list;
+    }
+
 }

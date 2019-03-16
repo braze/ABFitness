@@ -76,53 +76,6 @@ public class JsonUtils {
                 workOutDescription, coolDownVideoUrl, coolDownDescription);
     }
 
-    public static Fitness getMealPlan(String jsonString) {
-        if (jsonString == null || jsonString.isEmpty()) {
-            return null;
-        }
-        JSONObject mainObj = null;
-        String breakfastPic = null;
-        String breakfastText = null;
-        String lunchPicUrl = null;
-        String lunchText = null;
-        String dinnerPicUrl = null;
-        String dinnerText = null;
-        String snacksPicUrl = null;
-        String snacksText = null;
-        try {
-            mainObj = new JSONObject(jsonString);
-//            JSONObject objectInArray = mainObj.getJSONObject(dayOfWeek);
-            JSONObject mealPlan = mainObj.getJSONObject("meal_plan");
-
-            JSONObject breakfast = mealPlan.getJSONObject("breakfast");
-            breakfastPic = breakfast.getString("breakfast_pic_url");
-            breakfastText = breakfast.getString("breakfast_text");
-            JSONObject lunch = mealPlan.getJSONObject("lunch");
-            lunchPicUrl = lunch.getString("lunch_pic_url");
-            lunchText = lunch.getString("lunch_text");
-            JSONObject dinner = mealPlan.getJSONObject("dinner");
-            dinnerPicUrl = dinner.getString("dinner_pic_url");
-            dinnerText = dinner.getString("dinner_text");
-            JSONObject snacks = mealPlan.getJSONObject("snacks");
-            snacksPicUrl = snacks.getString("snacks_pic_url");
-            snacksText = snacks.getString("snacks_text");
-
-//            Log.d(TAG, "breakfastPic: " + breakfastPic);
-//            Log.d(TAG, "breakfastText: " + breakfastText);
-//            Log.d(TAG, "lunchPicUrl: " + lunchPicUrl);
-//            Log.d(TAG, "lunchText: " + lunchText);
-//            Log.d(TAG, "dinnerPicUrl: " + dinnerPicUrl);
-//            Log.d(TAG, "dinnerText: " + dinnerText);
-//            Log.d(TAG, "snacksPicUrl: " + snacksPicUrl);
-//            Log.d(TAG, "snacksText: " + snacksText);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new Fitness(breakfastPic, breakfastText, lunchPicUrl, lunchText,
-                dinnerPicUrl, dinnerText, snacksPicUrl, snacksText);
-    }
-
     public static Fitness getNews (String jsonString) {
         if (jsonString == null || jsonString.isEmpty()) {
             return null;
@@ -131,16 +84,12 @@ public class JsonUtils {
         JSONObject mainObj = null;
         try {
             mainObj = new JSONObject(jsonString);
-//            JSONObject objectInArray = mainObj.getJSONObject(dayOfWeek);
             JSONArray news = mainObj.getJSONArray("news");
             for (int i = 0; i < news.length(); i++) {
                 JSONObject object = news.getJSONObject(i);
                 String newsHeader = object.getString("news_header");
                 String newsPicUrl = object.getString("news_pic_url");
                 String newsBody = object.getString("news_body");
-//                Log.d(TAG, "getNews: " + newsHeader);
-//                Log.d(TAG, "getNews: " + newsPicUrl);
-//                Log.d(TAG, "getNews: " + newsBody);
                 list.add(new News(newsHeader, newsPicUrl, newsBody));
             }
         } catch (JSONException e) {

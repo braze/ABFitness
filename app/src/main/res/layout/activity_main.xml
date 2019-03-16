@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_wave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_main"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,6 +23,7 @@
         android:id="@+id/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:drawablePadding="@dimen/intro_text_drawable_padding"
         android:text="@string/app_name"
         android:textAlignment="center"
@@ -30,9 +31,11 @@
         android:textColor="@android:color/white"
         android:textSize="@dimen/intro_text_size"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/iv"
+        app:layout_constraintVertical_bias="0.065" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
@@ -40,12 +43,27 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/gogle_btn_side_margin"
         android:layout_marginRight="@dimen/gogle_btn_side_margin"
-        android:layout_marginBottom="@dimen/google_btn_margin_bottom"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/free_enter"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    />
+    <Button
+        android:id="@+id/free_enter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/gogle_btn_side_margin"
+        android:layout_marginTop="@dimen/google_btn_margin_bottom"
+        android:layout_marginRight="@dimen/gogle_btn_side_margin"
+        android:layout_marginBottom="@dimen/google_btn_margin_bottom"
+        android:text="@string/free_enter"
+        android:onClick="freeEnter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!--/>-->
 
     <!--<com.facebook.login.widget.LoginButton-->
     <!--android:id="@+id/facebook_login_button"-->

@@ -99,7 +99,7 @@ public class MealPlanActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-// Bail early if the cursor is null or there is less than 1 row in the cursor
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
         if (cursor == null || cursor.getCount() < 1) {
             Toast.makeText(this, getString(R.string.meal_plan_failed),
                     Toast.LENGTH_LONG).show();
