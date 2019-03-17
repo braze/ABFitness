@@ -75,10 +75,7 @@ public class MeContract {
         public static final int GENDER_FEMALE = 0;
 
         public static boolean isValidGender(int gender) {
-            if (gender == GENDER_MALE || gender == GENDER_FEMALE) {
-                return true;
-            }
-            return false;
+            return gender == GENDER_MALE || gender == GENDER_FEMALE;
         }
 
     }

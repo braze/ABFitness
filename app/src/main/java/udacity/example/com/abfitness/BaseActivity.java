@@ -73,32 +73,32 @@ public class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ((AppCompatActivity)this).getSupportActionBar().setTitle("AB Fitness");
+        this.getSupportActionBar().setTitle(R.string.main_title);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // Navigation view header
         mNavHeader = navigationView.getHeaderView(0);
-        mUserName = (TextView) mNavHeader.findViewById(R.id.nav_drawer_user_name);
-        mUserEmail = (TextView) mNavHeader.findViewById(R.id.nav_drawer_email);
+        mUserName = mNavHeader.findViewById(R.id.nav_drawer_user_name);
+        mUserEmail = mNavHeader.findViewById(R.id.nav_drawer_email);
 //        imgNavHeaderBg = (ImageView) mNavHeader.findViewById(R.id.img_header_bg);
-        mImgProfile = (ImageView) mNavHeader.findViewById(R.id.nav_drawer_iv);
+        mImgProfile = mNavHeader.findViewById(R.id.nav_drawer_iv);
 
         //start Async task
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         new FetchJsonAsyncTask(mPreferences).execute();
 
         //RecyclerView work
-        mRecyclerView = (RecyclerView) findViewById(R.id.base_list_rv);
+        mRecyclerView = findViewById(R.id.base_list_rv);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -140,7 +140,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -182,7 +182,7 @@ public class BaseActivity extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -239,7 +239,7 @@ public class BaseActivity extends AppCompatActivity
         String[] arrayVitality = getResources().getStringArray(R.array.array_vitality);
         String[] arrayOil = getResources().getStringArray(R.array.array_oil);
 
-        list.add("1 cup contains:");
+        list.add(getString(R.string.one_cup_contains_string));
         list.addAll(Arrays.asList(arrayRecover).subList(1, arrayRecover.length));
         list.addAll(Arrays.asList(arrayVitality).subList(1, arrayVitality.length));
         for (int i = 1; i < arrayEnergy.length; i++) {
@@ -247,7 +247,7 @@ public class BaseActivity extends AppCompatActivity
                 list.add(arrayEnergy[i]);
             }
         }
-        list.add("1 tbsp contains:");
+        list.add(getString(R.string.one_tbsp_contains_string));
         list.addAll(Arrays.asList(arrayOil).subList(1, arrayOil.length));
         return list;
     }

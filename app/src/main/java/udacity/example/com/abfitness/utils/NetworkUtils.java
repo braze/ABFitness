@@ -47,12 +47,7 @@ public class NetworkUtils {
         return url;
     }
 
-    /**
-     *
-     * @param url base url
-     * @return String of downloaded Json data
-     * @throws IOException
-     */
+
     private static String fetchJson(URL url) throws IOException {
         OkHttpClient client = new OkHttpClient();
 

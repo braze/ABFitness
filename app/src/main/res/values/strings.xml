@@ -48,7 +48,7 @@
     <string name="chickpeas">Chickpeas 729cal</string>
     <string name="nuts_mix">Nuts mix 800cal</string>
     <string name="pumpkin">Seeds Pumpkin 721cal</string>
-    <string name="fruits">Fruits / RAW 45-85cal</string>
+    <string name="fruits">Fruits / RAW 45–85cal</string>
     <string name="berries">Berries / RAW 85cal</string>
 
     <string name="kale">Kale 33</string>
@@ -80,6 +80,29 @@
     <string name="cat_pic">https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS07uU8m6lCnd3mFEN98OgtbpgstOVp40uKWmr48nAGPsxqKWbB</string>
     <string name="example_email">username@example.com</string>
     <string name="free_enter">Free Enter</string>
+    <string name="hint_about_me">About Me</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_gender">Gender</string>
+    <string name="hint_basic_data">Basic data</string>
+    <string name="hint_age">Age</string>
+    <string name="hint_weight">Weight</string>
+    <string name="hint_kg">kg</string>
+    <string name="hint_height">Height</string>
+    <string name="hint_cm">cm</string>
+    <string name="meal_plan_help_list">Meal plan help list</string>
+    <string name="meal_plan_help_list_not_available">Meal plan help list not available</string>
+    <string name="news_header_image">news header image</string>
+    <string name="play_button">play button</string>
+    <string name="pause_button">pause button</string>
+    <string name="welcome_to_ab_fitness">welcome to AB fitness</string>
+    <string name="exercise_activity_title">activity</string>
+    <string name="warm_up_title">Warm Up</string>
+    <string name="workout_title">Work Out</string>
+    <string name="cool_down_title">Cool Down</string>
+    <string name="main_title">AB Fitness</string>
+    <string name="one_cup_contains_string">1 cup contains:</string>
+    <string name="one_tbsp_contains_string">1 tbsp contains:</string>
+    <string name="meal_plan_title">Meal plan</string>
 
 
 </resources>

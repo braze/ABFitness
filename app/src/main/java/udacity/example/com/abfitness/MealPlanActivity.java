@@ -68,7 +68,7 @@ public class MealPlanActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_meal_plan);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        setTitle("Meal plan");
+        setTitle(R.string.meal_plan_title);
 
         ButterKnife.bind(this);
 

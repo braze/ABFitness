@@ -16,8 +16,6 @@ public class Calculate {
                 calories = 1650;
             } else if (height <= 185 ) {
                 calories = 1800;
-            } else if (height > 186) {
-                calories = 2000;
             }
 
         } else {

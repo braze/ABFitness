@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/browser_actions_bg_grey"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/meal_plan_widget_header"
@@ -31,7 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/browser_actions_bg_grey"
-            android:src="@drawable/ic_local_dining" />
+            android:src="@drawable/ic_local_dining"
+            android:contentDescription="@string/meal_plan_help_list_not_available" />
+
     </LinearLayout>
 
 

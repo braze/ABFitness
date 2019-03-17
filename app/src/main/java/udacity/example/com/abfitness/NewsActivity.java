@@ -39,7 +39,7 @@ public class NewsActivity extends BaseActivity implements OnNewsClickHandler {
         Fitness fitness = JsonUtils.getNews(jsonString);
         newsList = fitness.getNews();
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.news_rv);
+        mRecyclerView = findViewById(R.id.news_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);

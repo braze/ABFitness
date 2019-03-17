@@ -18,7 +18,7 @@
 
         <!-- Label -->
         <TextView
-            android:text="About Me"
+            android:text="@string/hint_about_me"
             style="@style/CategoryStyle" />
 
         <!-- Input fields -->
@@ -26,15 +26,17 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="@dimen/editor_name_field_side_padding"
+            android:paddingStart="@dimen/editor_name_field_side_padding"
+            android:paddingEnd="@dimen/zero_value"
             android:orientation="vertical">
 
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_username"
-                android:hint="Name"
+                android:hint="@string/hint_name"
                 android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
+                style="@style/EditorFieldStyle"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
     </LinearLayout>
@@ -48,7 +50,7 @@
 
         <!-- Label -->
         <TextView
-            android:text="Gender"
+            android:text="@string/hint_gender"
             style="@style/CategoryStyle" />
 
         <!-- Input field -->
@@ -63,7 +65,8 @@
                 android:id="@+id/spinner_gender"
                 android:layout_height="48dp"
                 android:layout_width="wrap_content"
-                android:paddingRight="@dimen/editor_spinner_side_padding"
+                android:paddingStart="@dimen/zero_value"
+                android:paddingEnd="@dimen/editor_spinner_side_padding"
                 android:spinnerMode="dropdown"/>
         </LinearLayout>
     </LinearLayout>
@@ -77,7 +80,7 @@
 
         <!-- Label -->
         <TextView
-            android:text="Basic data"
+            android:text="@string/hint_basic_data"
             style="@style/CategoryStyle" />
 
         <!-- Input fields -->
@@ -85,14 +88,16 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="@dimen/editor_fields_side_padding">
+            android:paddingStart="@dimen/editor_fields_side_padding"
+            android:paddingEnd="@dimen/zero_value">
 
             <!-- Age field -->
             <EditText
                 android:id="@+id/edit_user_age"
-                android:hint="Age"
+                android:hint="@string/hint_age"
                 android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                style="@style/EditorFieldStyle"
+                tools:ignore="Autofill" />
 
         </RelativeLayout>
 
@@ -115,19 +120,21 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="@dimen/editor_fields_side_padding">
+            android:paddingStart="@dimen/editor_fields_side_padding"
+            android:paddingEnd="@dimen/zero_value">
 
             <!-- Weight field -->
             <EditText
                 android:id="@+id/edit_user_weight"
-                android:hint="Weight"
+                android:hint="@string/hint_weight"
                 android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                style="@style/EditorFieldStyle"
+                tools:ignore="Autofill" />
 
             <!-- Units for weight (kg) -->
             <TextView
                 android:id="@+id/label_weight_units"
-                android:text="kg"
+                android:text="@string/hint_kg"
                 style="@style/EditorUnitsStyle"/>
         </RelativeLayout>
     </LinearLayout>
@@ -149,19 +156,21 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:paddingLeft="@dimen/editor_fields_side_padding">
+            android:paddingStart="@dimen/editor_fields_side_padding"
+            android:paddingEnd="@dimen/zero_value">
 
             <!-- Height field -->
             <EditText
                 android:id="@+id/edit_user_height"
-                android:hint="Height"
+                android:hint="@string/hint_height"
                 android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                style="@style/EditorFieldStyle"
+                tools:ignore="Autofill" />
 
             <!-- Units for weight (kg) -->
             <TextView
                 android:id="@+id/label_height_units"
-                android:text="cm"
+                android:text="@string/hint_cm"
                 style="@style/EditorUnitsStyle"/>
         </RelativeLayout>
     </LinearLayout>

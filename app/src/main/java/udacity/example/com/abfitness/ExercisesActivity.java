@@ -35,7 +35,7 @@ public class ExercisesActivity extends AppCompatActivity implements
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_exercises);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.exercise_toolbar);
+        Toolbar toolbar = findViewById(R.id.exercise_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -60,16 +60,16 @@ public class ExercisesActivity extends AppCompatActivity implements
             workOutDescription = fitness.getWorkOutDescription();
             coolDownVideoUrl = fitness.getCoolDownVideoUrl();
             coolDownDescription = fitness.getCoolDownDescription();
-            ((AppCompatActivity)this).getSupportActionBar().setTitle(jsonPositionName + " activity");
+            this.getSupportActionBar().setTitle(jsonPositionName + getString(R.string.exercise_activity_title));
         }
 
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Warm Up"));
-        tabLayout.addTab(tabLayout.newTab().setText("Work Out"));
-        tabLayout.addTab(tabLayout.newTab().setText("Cool Down"));
+        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.warm_up_title));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.workout_title));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.cool_down_title));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final ViewPager viewPager = findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(),
                         warmUpVideoUrl, warmUpDescription, workOutVideoUrl,
