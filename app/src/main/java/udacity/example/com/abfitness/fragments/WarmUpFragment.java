@@ -158,6 +158,7 @@ public class WarmUpFragment extends Fragment implements Player.EventListener{
     @Override
     public void onPause() {
         super.onPause();
+        pausePlayer();
         if (Util.SDK_INT <= 23) {
             releasePlayer();
         }
@@ -223,8 +224,10 @@ public class WarmUpFragment extends Fragment implements Player.EventListener{
     }
 
     private void releasePlayer() {
+        mPlayer.setPlayWhenReady(false);
         if (mPlayer != null) {
             playBackPosition = mPlayer.getCurrentPosition();
+            playWhenReady = false;
             mPlayer.stop();
             mPlayer.release();
             mPlayer = null;
@@ -331,6 +334,11 @@ public class WarmUpFragment extends Fragment implements Player.EventListener{
     @Override
     public void onSeekProcessed() {
 
+    }
+
+    private void pausePlayer(){
+        mPlayer.setPlayWhenReady(false);
+        mPlayer.getPlaybackState();
     }
 
     /**

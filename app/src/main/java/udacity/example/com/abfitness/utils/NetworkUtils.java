@@ -13,7 +13,7 @@ import okhttp3.Response;
 public class NetworkUtils {
 
     private static String TAG = NetworkUtils.class.getSimpleName();
-    private static final String ABFITNESS_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/abfiness-dd02f.appspot.com/o/abfit.json?alt=media&token=0fa0998c-bada-4757-a670-16c61cac7161";
+    private static final String ABFITNESS_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/abfiness-dd02f.appspot.com/o/abfit.json?alt=media&token=fcbad711-0de6-4e14-9a55-c56c81c30ee3";
     public static final String THE_JSON = "the_Json";
     private static SharedPreferences sPreferences;
 
@@ -31,7 +31,6 @@ public class NetworkUtils {
             e.printStackTrace();
         }
         sPreferences.edit().putString(THE_JSON, jsonString).apply();
-//        return jsonString;
     }
 
     /**

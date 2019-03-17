@@ -51,10 +51,6 @@ public class NewsDetailActivity extends AppCompatActivity {
             String picUrl = intent.getStringExtra(LOGO_URL);
             String article = intent.getStringExtra(ARTICLE);
 
-            Log.d(TAG, "onCreate: " + header);
-            Log.d(TAG, "onCreate: " + picUrl);
-            Log.d(TAG, "onCreate: " + article);
-
             RequestOptions options = new RequestOptions()
                     .centerCrop()
                     .placeholder(R.color.colorPrimaryLight)
