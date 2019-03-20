@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness;
+package udacity.example.com.abfitness.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import java.util.ArrayList;
+
+import udacity.example.com.abfitness.BaseActivity;
+import udacity.example.com.abfitness.R;
 
 public class ListWidgetService extends RemoteViewsService {
     @Override

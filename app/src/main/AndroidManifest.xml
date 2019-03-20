@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="udacity.example.com.abfitness">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,9 +11,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
-        <receiver android:name=".MealPlanWidgetProvider">
+        <!--This meta-data tag is required to use Google Play Services.-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <receiver android:name="udacity.example.com.abfitness.widget.MealPlanWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -23,10 +30,10 @@
         </receiver>
 
         <service
-            android:name=".ListWidgetService"
+            android:name="udacity.example.com.abfitness.widget.ListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <service android:name=".MealPlanService" />
+        <service android:name="udacity.example.com.abfitness.widget.MealPlanService" />
 
         <activity android:name=".MealPlanActivity">
 
@@ -76,10 +83,16 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".data.MeProvider"
-            android:authorities="udacity.example.com.abfitness"
-            android:exported="false" />
+        <!--Include the AdActivity configChanges and theme. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- Include the key to be used by Ads -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ads_id"/>
+
     </application>
 
 </manifest>

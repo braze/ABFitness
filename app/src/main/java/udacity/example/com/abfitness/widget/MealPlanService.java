@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness;
+package udacity.example.com.abfitness.widget;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
@@ -6,6 +6,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+
+import udacity.example.com.abfitness.R;
 
 
 public class MealPlanService extends IntentService {

@@ -1,6 +1,5 @@
 package udacity.example.com.abfitness;
 
-import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -31,10 +30,10 @@ import java.util.Arrays;
 
 import udacity.example.com.abfitness.adapters.BaseListAdapter;
 import udacity.example.com.abfitness.async.tasks.FetchJsonAsyncTask;
-import udacity.example.com.abfitness.data.MeContract.UserEntry;
 import udacity.example.com.abfitness.interfaces.OnAdapterClickHandler;
 import udacity.example.com.abfitness.utils.CircleTransform;
 import udacity.example.com.abfitness.utils.JsonUtils;
+import udacity.example.com.abfitness.widget.MealPlanService;
 
 import static udacity.example.com.abfitness.MainActivity.EXTRA_EMAIL;
 import static udacity.example.com.abfitness.MainActivity.EXTRA_NAME;
@@ -138,15 +137,15 @@ public class BaseActivity extends AppCompatActivity
         MealPlanService.startActionSetWidgetMealPlanHelp(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -155,26 +154,25 @@ public class BaseActivity extends AppCompatActivity
         if (id == R.id.nav_me) {
             // Handle the ME action
             Intent intent = new Intent(BaseActivity.this, EditorActivity.class);
-            Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
-            intent.setData(currentPetUri);
+            intent.putExtra("userId", 1);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if (id == R.id.nav_meal_plan) {
             //getting mealPlan
             Intent intent = new Intent(BaseActivity.this, MealPlanActivity.class);
-            Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
-            intent.setData(currentPetUri);
+            intent.putExtra("userId", 1);
             startActivity(intent);
-
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if (id == R.id.nav_news) {
             startActivity(new Intent(BaseActivity.this, NewsActivity.class));
-
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if (id == R.id.nav_feedback) {
             //Send email
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
             emailIntent.setData(Uri.parse("mailto:yabraze@gmail.com"));
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "AB Fitness");
             startActivity(Intent.createChooser(emailIntent, "Send feedback"));
-
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if (id == R.id.btn_sign_out) {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -228,9 +226,10 @@ public class BaseActivity extends AppCompatActivity
         Intent intent = new Intent(this, ExercisesActivity.class);
         intent.putExtra(ARG_INTENT_EXERCISES, posName);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
-    //prepare list for widget
+    //prepare list for udacity.example.com.abfitness.widget
     private ArrayList<String> getHelpMealList() {
         ArrayList<String> list = new ArrayList<>();
 
@@ -250,6 +249,12 @@ public class BaseActivity extends AppCompatActivity
         list.add(getString(R.string.one_tbsp_contains_string));
         list.addAll(Arrays.asList(arrayOil).subList(1, arrayOil.length));
         return list;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }

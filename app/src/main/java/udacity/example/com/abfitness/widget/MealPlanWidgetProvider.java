@@ -1,4 +1,4 @@
-package udacity.example.com.abfitness;
+package udacity.example.com.abfitness.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RemoteViews;
+
+import udacity.example.com.abfitness.MainActivity;
+import udacity.example.com.abfitness.R;
 
 public class MealPlanWidgetProvider extends AppWidgetProvider {
 
@@ -39,7 +42,7 @@ public class MealPlanWidgetProvider extends AppWidgetProvider {
             remoteViews.setEmptyView(R.id.widget_list_view, R.id.empty_view);
         }
 
-        // Instruct the widget manager to update the widget
+        // Instruct the udacity.example.com.abfitness.widget manager to update the udacity.example.com.abfitness.widget
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     }
 
@@ -65,12 +68,12 @@ public class MealPlanWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+        // Enter relevant functionality for when the first udacity.example.com.abfitness.widget is created
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+        // Enter relevant functionality for when the last udacity.example.com.abfitness.widget is disabled
     }
 
 }

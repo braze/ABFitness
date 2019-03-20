@@ -189,6 +189,12 @@ public class MainActivity extends BaseActivity implements
 //        }
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
     private void openBaseActivity(FirebaseUser currentUser) {
         String name = currentUser.getDisplayName();
         String photoUri = currentUser.getPhotoUrl().toString();
@@ -198,6 +204,7 @@ public class MainActivity extends BaseActivity implements
         userDataIntent.putExtra(EXTRA_PHOTO_URI, photoUri);
         userDataIntent.putExtra(EXTRA_EMAIL, eMail);
         startActivity(userDataIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void freeEnter(View view) {
@@ -206,5 +213,6 @@ public class MainActivity extends BaseActivity implements
         userDataIntent.putExtra(EXTRA_PHOTO_URI, R.string.cat_pic);
         userDataIntent.putExtra(EXTRA_EMAIL, R.string.example_email);
         startActivity(userDataIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

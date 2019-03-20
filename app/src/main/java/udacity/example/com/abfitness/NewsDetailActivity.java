@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +45,13 @@ public class NewsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail);
 
         ButterKnife.bind(this);
+
+        //ads
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        mAdView.loadAd(adRequest);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -76,6 +85,12 @@ public class NewsDetailActivity extends AppCompatActivity {
                 .setType("text/plain")
                 .setText(article)
                 .getIntent(), getString(R.string.action_share)));
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }

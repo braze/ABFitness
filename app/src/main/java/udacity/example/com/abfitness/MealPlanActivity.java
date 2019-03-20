@@ -1,13 +1,12 @@
 package udacity.example.com.abfitness;
 
-import android.app.LoaderManager;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentUris;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -16,24 +15,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import udacity.example.com.abfitness.data.MeContract.UserEntry;
+import udacity.example.com.abfitness.model.User;
+import udacity.example.com.abfitness.model.UserViewModel;
+import udacity.example.com.abfitness.model.UserViewModelFactory;
+import udacity.example.com.abfitness.room.UserDB;
 import udacity.example.com.abfitness.utils.Calculate;
 
-public class MealPlanActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>{
+public class MealPlanActivity extends AppCompatActivity {
 
     private static final String TAG = MealPlanActivity.class.getSimpleName();
-    private static final int EXISTING_USER_LOADER = 3450;
-    private Uri mCurrentUserUri;
-    private int mAge;
-    private int mGender;
-    private int mHeight;
-    private int mWeight;
+
     private int mTotalCaloriesValue;
+    private UserDB mDb;
 
     @BindView(R.id.total_calories)
     TextView mTotalCalories;
@@ -71,74 +68,33 @@ public class MealPlanActivity extends AppCompatActivity implements
         setTitle(R.string.meal_plan_title);
 
         ButterKnife.bind(this);
+        mDb = UserDB.getInstance(getApplicationContext());
 
         Intent intent = getIntent();
-        mCurrentUserUri = intent.getData();
-        if (mCurrentUserUri != null) {
-            getLoaderManager().initLoader(EXISTING_USER_LOADER, null, this);
+        if (intent != null) {
+            final int id = intent.getIntExtra("userId", 1);
+            UserViewModelFactory factory = new UserViewModelFactory(mDb, id);
+            UserViewModel viewModel = ViewModelProviders.of(this, factory).get(UserViewModel.class);
+            viewModel.getUser().observe(this, new Observer<User>() {
+                @Override
+                public void onChanged(@Nullable User user) {
+                    if (user != null) {
+                        int height = user.getHeight();
+                        int gender = user.getGender();
+                        mTotalCaloriesValue = Calculate.getCaloriesPlan(height, gender);
+                        populateViews();
+                    } else {
+                        Intent intent = new Intent(MealPlanActivity.this, EditorActivity.class);
+                        Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
+                        intent.setData(currentPetUri);
+                        startActivity(intent);
+                    }
+                }
+            });
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = {
-                UserEntry._ID,
-                UserEntry.COLUMN_USER_NAME,
-                UserEntry.COLUMN_USER_AGE,
-                UserEntry.COLUMN_USER_GENDER,
-                UserEntry.COLUMN_USER_HEIGHT,
-                UserEntry.COLUMN_USER_WEIGHT };
-
-        return new CursorLoader(this,
-                mCurrentUserUri,
-                projection,
-                null,
-                null,
-                null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        // Bail early if the cursor is null or there is less than 1 row in the cursor
-        if (cursor == null || cursor.getCount() < 1) {
-            Toast.makeText(this, getString(R.string.meal_plan_failed),
-                    Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MealPlanActivity.this, EditorActivity.class);
-            Uri currentPetUri = ContentUris.withAppendedId(UserEntry.CONTENT_URI, 1);
-            intent.setData(currentPetUri);
-            startActivity(intent);
-            return;
-        }
-
-        // Proceed with moving to the first row of the cursor and reading data from it
-        // (This should be the only row in the cursor)
-        if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
-            int nameColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_NAME);
-            int ageColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_AGE);
-            int genderColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_GENDER);
-            int heightColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_HEIGHT);
-            int weightColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_WEIGHT);
-
-            // Extract out the value from the Cursor for the given column index
-            String name = cursor.getString(nameColumnIndex);
-            mAge = cursor.getInt(ageColumnIndex);
-            mGender = cursor.getInt(genderColumnIndex);
-            mHeight = cursor.getInt(heightColumnIndex);
-            mWeight = cursor.getInt(weightColumnIndex);
-
-            mTotalCaloriesValue = Calculate.getCaloriesPlan(mHeight, mGender);
-
-            fillViews();
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
-    private void fillViews() {
+    private void populateViews() {
         mTotalCalories.setText(getString(R.string.total_cal_per_day) + " " + String.valueOf(mTotalCaloriesValue));
         int recoveryValue = (int) (mTotalCaloriesValue * 0.3f);
         mRecovery.setText(getString(R.string.recovery_cal) + " " + String.valueOf(recoveryValue));
@@ -195,5 +151,11 @@ public class MealPlanActivity extends AppCompatActivity implements
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

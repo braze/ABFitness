@@ -1,19 +1,15 @@
 package udacity.example.com.abfitness;
 
 import android.annotation.SuppressLint;
-import android.app.LoaderManager;
-import android.content.ContentValues;
-import android.content.CursorLoader;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.net.ParseException;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -27,12 +23,15 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import udacity.example.com.abfitness.data.MeContract.UserEntry;
+import udacity.example.com.abfitness.model.User;
+import udacity.example.com.abfitness.model.UserViewModel;
+import udacity.example.com.abfitness.model.UserViewModelFactory;
+import udacity.example.com.abfitness.room.UserDB;
+import udacity.example.com.abfitness.utils.AppExecutor;
 
-public class EditorActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor>{
+public class EditorActivity extends AppCompatActivity {
 
     private static final String TAG = EditorActivity.class.getSimpleName();
-    private static final int EXISTING_USER_LOADER = 0;
 
     @BindView(R.id.edit_username)
     EditText mUserName;
@@ -49,9 +48,10 @@ public class EditorActivity extends AppCompatActivity implements
     @BindView(R.id.spinner_gender)
     Spinner mGenderSpinner;
 
-    private Uri mCurrentUserUri;
     private int mGender = UserEntry.GENDER_FEMALE;
     private boolean mUserHasChanged = false;
+    private UserDB mDb;
+    private User mUser;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @SuppressLint("ClickableViewAccessibility")
@@ -70,10 +70,22 @@ public class EditorActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
 
+        mDb = UserDB.getInstance(getApplicationContext());
+
         Intent intent = getIntent();
-        mCurrentUserUri = intent.getData();
-        if (mCurrentUserUri != null) {
-            getLoaderManager().initLoader(EXISTING_USER_LOADER, null, this);
+        if (intent != null) {
+            final int id = intent.getIntExtra("userId", 1);
+            UserViewModelFactory factory = new UserViewModelFactory(mDb, id);
+            UserViewModel viewModel = ViewModelProviders.of(this, factory).get(UserViewModel.class);
+            viewModel.getUser().observe(this, new Observer<User>() {
+                @Override
+                public void onChanged(@Nullable User user) {
+                    if (user != null) {
+                        mUser = user;
+                        populateUi();
+                    }
+                }
+            });
         }
 
         mUserName.setOnTouchListener(mTouchListener);
@@ -85,80 +97,18 @@ public class EditorActivity extends AppCompatActivity implements
         setupSpinner();
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = {
-                UserEntry._ID,
-                UserEntry.COLUMN_USER_NAME,
-                UserEntry.COLUMN_USER_AGE,
-                UserEntry.COLUMN_USER_GENDER,
-                UserEntry.COLUMN_USER_HEIGHT,
-                UserEntry.COLUMN_USER_WEIGHT };
+    private void populateUi() {
+        String name = mUser.getUserName();
+        int age = mUser.getAge();
+        int gender = mUser.getGender();
+        int height = mUser.getHeight();
+        int weight = mUser.getWeight();
 
-        return new CursorLoader(this,
-                mCurrentUserUri,
-                projection,
-                null,
-                null,
-                null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-// Bail early if the cursor is null or there is less than 1 row in the cursor
-        if (cursor == null || cursor.getCount() < 1) {
-            mCurrentUserUri = null;
-
-            return;
-        }
-
-        // Proceed with moving to the first row of the cursor and reading data from it
-        // (This should be the only row in the cursor)
-        if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
-            int nameColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_NAME);
-            int ageColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_AGE);
-            int genderColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_GENDER);
-            int heightColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_HEIGHT);
-            int weightColumnIndex = cursor.getColumnIndex(UserEntry.COLUMN_USER_WEIGHT);
-
-            // Extract out the value from the Cursor for the given column index
-            String name = cursor.getString(nameColumnIndex);
-            int age = cursor.getInt(ageColumnIndex);
-            int gender = cursor.getInt(genderColumnIndex);
-            int height = cursor.getInt(heightColumnIndex);
-            int weight = cursor.getInt(weightColumnIndex);
-
-            // Update the views on the screen with the values from the database
-            mUserName.setText(name);
-            mAge.setText(String.valueOf(age));
-            mHeight.setText(String.valueOf(height));
-            mWeight.setText(String.valueOf(weight));
-
-            // Gender is a dropdown spinner, so map the constant value from the database
-            // into one of the dropdown options (0 is Unknown, 1 is Male, 2 is Female).
-            // Then call setSelection() so that option is displayed on screen as the current selection.
-            switch (gender) {
-                case UserEntry.GENDER_MALE:
-                    mGenderSpinner.setSelection(1);
-                    break;
-                case UserEntry.GENDER_FEMALE:
-                    mGenderSpinner.setSelection(0);
-                    break;
-                default:
-                    mGenderSpinner.setSelection(0);
-                    break;
-            }
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mUserName.setText("");
-        mAge.setText("");
-        mHeight.setText("");
-        mWeight.setText("");
-        mGenderSpinner.setSelection(0);
+        mUserName.setText(name);
+        mAge.setText(String.valueOf(age));
+        mHeight.setText(String.valueOf(height));
+        mWeight.setText(String.valueOf(weight));
+        mGender = gender;
     }
 
     private void setupSpinner() {
@@ -218,80 +168,53 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void saveUser() {
-        // Read from input fields
-        // Use trim to eliminate leading or trailing white space
         String userNameString = mUserName.getText().toString().trim();
         String ageString = mAge.getText().toString().trim();
         String heightString = mHeight.getText().toString().trim();
         String weightString = mWeight.getText().toString().trim();
 
-        if (mCurrentUserUri == null &&
-                TextUtils.isEmpty(userNameString) && TextUtils.isEmpty(ageString) &&
+        if (  TextUtils.isEmpty(userNameString) && TextUtils.isEmpty(ageString) &&
                 TextUtils.isEmpty(heightString) && TextUtils.isEmpty(weightString)) {
             Toast.makeText(this, getString(R.string.editor_insert_user_failed),
                     Toast.LENGTH_SHORT).show();
             return;
         }
-
-        ContentValues values = new ContentValues();
-        values.put(UserEntry.COLUMN_USER_NAME, userNameString);
-        values.put(UserEntry.COLUMN_USER_GENDER, mGender);
+        int age = 0;
+        int height = 0;
+        int weight = 0;
+        try {
+            age = Integer.parseInt(ageString);
+        } catch (ParseException e) {
+            age = 0;
+        }
 
         try {
-
-            int age = 0;
-            if (!TextUtils.isEmpty(weightString)) {
-                age = Integer.parseInt(ageString);
-            }
-            values.put(UserEntry.COLUMN_USER_AGE, age);
-
-            int height = 0;
-            if (!TextUtils.isEmpty(weightString)) {
-                height = Integer.parseInt(heightString);
-            }
-            values.put(UserEntry.COLUMN_USER_HEIGHT, height);
-
-            int weight = 0;
-            if (!TextUtils.isEmpty(weightString)) {
-                weight = Integer.parseInt(weightString);
-            }
-            values.put(UserEntry.COLUMN_USER_WEIGHT, weight);
-        }catch (ParseException e) {
-            values.put(UserEntry.COLUMN_USER_AGE, 0);
-            values.put(UserEntry.COLUMN_USER_HEIGHT, 0);
-            values.put(UserEntry.COLUMN_USER_WEIGHT, 0);
+            height = Integer.parseInt(heightString);
+        } catch (ParseException e) {
+            height = 0;
         }
 
-        Log.d(TAG, "mCurrentUserUri == null ? : " + (mCurrentUserUri == null));
+        try {
+            weight = Integer.parseInt(weightString);
 
-        if (mCurrentUserUri == null) {
-            Uri newUri = getContentResolver().insert(UserEntry.CONTENT_URI, values);
-
-            // Show a toast message depending on whether or not the insertion was successful.
-            if (newUri == null) {
-                // If the new content URI is null, then there was an error with insertion.
-                Log.d(TAG, "saveUser: FAIL");
-                Toast.makeText(this, getString(R.string.editor_insert_user_failed),
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_insert_user_successful),
-                        Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            int rowsAffected = getContentResolver().update(mCurrentUserUri, values, null, null);
-
-            // Show a toast message depending on whether or not the update was successful.
-            if (rowsAffected == 0) {
-                // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, getString(R.string.editor_update_user_failed),
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_update_user_successful),
-                        Toast.LENGTH_SHORT).show();
-            }
+        } catch (ParseException e) {
+            weight = 0;
         }
+
+        final User user  = new User(1, userNameString, mGender, age, weight, height);
+
+        AppExecutor.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.userDao().insertUser(user);
+            }
+        });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 }

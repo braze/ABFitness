@@ -103,6 +103,9 @@
     <string name="one_cup_contains_string">1 cup contains:</string>
     <string name="one_tbsp_contains_string">1 tbsp contains:</string>
     <string name="meal_plan_title">Meal plan</string>
+    <string name="ads_id">ca-app-pub-8604814291061076~6016407965</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner">BANNER</string>
 
 
 </resources>
